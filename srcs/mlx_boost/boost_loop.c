@@ -6,7 +6,7 @@
 /*   By: jeekpark <jeekpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 00:16:34 by jeekpark          #+#    #+#             */
-/*   Updated: 2023/11/01 00:20:38 by jeekpark         ###   ########.fr       */
+/*   Updated: 2023/11/01 00:31:55 by jeekpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ t_boost_err	boost_loop(void *boost)
 
 	temp = (t_boost *)boost;
 	mlx_loop(temp->mlx);
-	return (TRUE);
+	return (FALSE);
 }

@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_boost_list_types.h                             :+:      :+:    :+:   */
+/*   boost_set_pixel.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeekpark <jeekpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 23:05:50 by jeekpark          #+#    #+#             */
-/*   Updated: 2023/10/31 23:19:56 by jeekpark         ###   ########.fr       */
+/*   Created: 2023/10/31 23:51:54 by jeekpark          #+#    #+#             */
+/*   Updated: 2023/10/31 23:53:25 by jeekpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MLX_BOOST_LIST_TYPES_H
-# define MLX_BOOST_LIST_TYPES_H
+#include "../../includes/mlx_boost_types.h"
 
-typedef struct s_boost_node
+t_boost_pixel	boost_set_pixel(int x, int y)
 {
-	void				*content;
-	struct s_boost_node	*next_node;
-	struct s_boost_node	*prev_node;
-}	t_boost_node;
+	t_boost_pixel	result;
 
-typedef	struct s_boost_list
-{
-	t_boost_node		*head;
-	t_boost_node		*tail;
-	t_boost_node		*cursor;
-}	t_boost_list;
-
-#endif
+	result.x = x;
+	result.y = y;
+	return (result);
+}

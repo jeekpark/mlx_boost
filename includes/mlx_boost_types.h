@@ -6,7 +6,7 @@
 /*   By: jeekpark <jeekpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 18:56:15 by jeekpark          #+#    #+#             */
-/*   Updated: 2023/10/31 23:05:10 by jeekpark         ###   ########.fr       */
+/*   Updated: 2023/10/31 23:51:18 by jeekpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,18 @@
 
 # include <stddef.h>
 
+# include "mlx_boost_list_types.h"
+
 # define FALSE	(0)
 # define TRUE	(1)
+
+# define RDONLY	(0)
+# define RDWR	(1)
 
 typedef int				t_boost_color;
 typedef int				t_boost_bool;
 typedef t_boost_bool	t_boost_err;
+typedef int				t_component_mode;
 
 typedef struct s_boost_pixel
 {
@@ -28,25 +34,28 @@ typedef struct s_boost_pixel
 	int					y;
 }	t_boost_pixel;
 
-typedef struct s_boost_line
+typedef struct s_boost_component
 {
-	t_boost_pixel		first;
-	t_boost_pixel		second;
-}	t_boost_line;
+	t_component_mode	mode;
+	char				*name;
+	void				*mlx_ptr;
+	void				*img;
+	int					width;
+	int					height;
+	int					*mlx_data_addr;
+	int					bpp;
+	int					line_size;
+	int					endian;
+}	t_boost_component;
 
-typedef struct s_boost_rect
+typedef struct s_boost
 {
-	t_boost_pixel		first;
-	t_boost_pixel		second;
-}	t_boost_rect;
-
-struct s_boost
-{
-	void			*mlx;
-	void			*win;
-	t_boost_pixel	win_size;
-	size_t			component_count;
+	void				*mlx;
+	void				*win;
+	t_boost_pixel		win_size;
+	t_boost_list		components;
 }	t_boost;
+
 
 
 

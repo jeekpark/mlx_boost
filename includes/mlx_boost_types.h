@@ -6,7 +6,7 @@
 /*   By: jeekpark <jeekpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 18:56:15 by jeekpark          #+#    #+#             */
-/*   Updated: 2023/10/31 23:51:18 by jeekpark         ###   ########.fr       */
+/*   Updated: 2023/11/01 02:31:26 by jeekpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,26 @@
 
 # include "mlx_boost_list_types.h"
 
-# define FALSE	(0)
-# define TRUE	(1)
+# define FALSE					0
+# define TRUE					1
 
-# define RDONLY	(0)
-# define RDWR	(1)
+# define RDONLY					0
+# define RDWR					1
+
+# define MAX_WINDOW_WIDTH		3860
+# define MIN_WINDOW_WIDTH		100
+# define MAX_WINDOW_HEIGHT		2160
+# define MIN_WINDOW_HEIGHT		100
+
+# define MAX_COMPONENT_WIDTH	16384
+# define MIN_COMPONENT_WIDTH	1
+# define MAX_COMPONENT_HEIGHT	16384
+# define MIN_COMPONENT_HEIGHT	1
 
 typedef int				t_boost_color;
 typedef int				t_boost_bool;
 typedef t_boost_bool	t_boost_err;
-typedef int				t_component_mode;
+typedef int				t_boost_mode;
 
 typedef struct s_boost_pixel
 {
@@ -36,7 +46,7 @@ typedef struct s_boost_pixel
 
 typedef struct s_boost_component
 {
-	t_component_mode	mode;
+	t_boost_mode		mode;
 	char				*name;
 	void				*mlx_ptr;
 	void				*img;

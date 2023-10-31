@@ -6,7 +6,7 @@
 /*   By: jeekpark <jeekpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 18:55:18 by jeekpark          #+#    #+#             */
-/*   Updated: 2023/11/01 00:29:38 by jeekpark         ###   ########.fr       */
+/*   Updated: 2023/11/01 02:04:13 by jeekpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 
 # include "mlx_boost_types.h"
 
-
-
 void			*boost_init(int window_width, int window_height, char *title);
 
-t_boost_err		boost_add_component(void *boost, t_boost_pixel comp_size, char *comp_ame);
+t_boost_err		boost_add_component(void *boost, t_boost_pixel comp_size, char *comp_name);
 t_boost_err		boost_add_component_from_xpm(void *boost, char* file_path, char *comp_name);
 t_boost_err		boost_add_component_from_png(void *boost, char* file_path, char *comp_name);
 t_boost_err		boost_del_component_by_name(void *boost, char* comp_name);

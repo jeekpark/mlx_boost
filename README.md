@@ -4,3 +4,5 @@ Extended library from mlx. Safe and efficient.
 ### Feature
 - component: Easy and fast image handling features.
 - Easy handling, minimized crush.
+- Apple/Intel both adaptability
+- For only macOS

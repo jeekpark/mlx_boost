@@ -6,7 +6,7 @@
 #    By: jeekpark <jeekpark@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/31 14:55:02 by jeekpark          #+#    #+#              #
-#    Updated: 2023/11/01 22:11:13 by jeekpark         ###   ########.fr        #
+#    Updated: 2023/11/01 22:46:42 by jeekpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,6 @@ NAME							=	libmlxboost.dylib
 CC								=	cc
 CFLAGS							=	-Wall -Wextra -Werror -fPIC
 LDFLAGS							=	-dynamiclib
-
 
 MLX_BOOST_DIR					=	./srcs/mlx_boost/
 MLX_BOOST_LIST_DIR				=	./srcs/mlx_boost_list/
@@ -42,28 +41,31 @@ MLX_BOOST_OBJS					=	$(MLX_BOOST_SRCS:.c=.o)
 MLX_BOOST_LIST_OBJS				=	$(MLX_BOOST_LIST_SRCS:.c=.o)
 MLX_BOOST_UTILS_OBJS			=	$(MLX_BOOST_UTILS_SRCS:.c=.o)
 
+ARCH							:=	$(shell uname -m)
+ARCH_APPLE						=	arm64
 
+LIBMLX_APPLE_DIR				=	./mlx_apple/
+LIBMLX_INTEL_DIR				=	./mlx_intel/
 
+LIBMLX_FILE_NAME				=	libmlx.dylib
 
-
-
-ARCH		:= $(shell uname -m)
-
-ifeq ($(ARCH), arm64)
-	LIBMLX = ./mlx_m1/libmlx.dylib
+ifeq ($(ARCH), $(ARCH_APPLE))
+LIBMLX							=	$(addprefix $(LIBMLX_APPLE_DIR), $(LIBMLX_FILE_NAME))
 else
-	LIBMLX = ./mlx_intel/libmlx.dylib
+LIBMLX							=	$(addprefix $(LIBMLX_INTEL_DIR), $(LIBMLX_FILE_NAME))
 endif
 
+MAKE_SINGLE_THREAD				=	make -j 1
+STDOUT_SKIP						=	1>/dev/null
+STDERR_SKIP						=	2>/dev/null
 
 all : $(NAME)
 
-
 $(NAME): $(MLX_BOOST_OBJS) $(MLX_BOOST_LIST_OBJS) $(MLX_BOOST_UTILS_OBJS)
-ifeq ($(ARCH), arm64)
-	make -C mlx_m1 2>/dev/null 1>/dev/null
+ifeq ($(ARCH), $(ARCH_APPLE))
+	$(MAKE_SINGLE_THREAD) -C $(LIBMLX_APPLE_DIR) $(STDOUT_SKIP) $(STDERR_SKIP)
 else
-	make -C mlx_intel 2>/dev/null 1>/dev/null
+	$(MAKE_SINGLE_THREAD) -C $(LIBMLX_INTEL_DIR) $(STDOUT_SKIP) $(STDERR_SKIP)
 endif
 	$(CC) $(LDFLAGS) -o $@ $^ $(LIBMLX)
 
@@ -72,8 +74,18 @@ endif
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean :
-	make -C mlx_m1 clean
-	rm -f $(MLX_BOOST_OBJS) $(MLX_BOOST_LIST_OBJS) $(MLX_BOOST_UTILS_OBJS) $(NAME)
+ifeq ($(ARCH), $(ARCH_APPLE))
+	$(MAKE_SINGLE_THREAD) -C $(LIBMLX_APPLE_DIR) clean
+else
+	$(MAKE_SINGLE_THREAD) -C $(LIBMLX_INTER_DIR) clean
+endif
+	$(RM) $(MLX_BOOST_OBJS) $(MLX_BOOST_LIST_OBJS) $(MLX_BOOST_UTILS_OBJS)
 
+fclean : clean
+	$(RM) $(NAME)
 
-.PHONY: all clean
+re :
+	$(MAKE) fclean
+	$(MAKE) all
+
+.PHONY: all clean fclean re

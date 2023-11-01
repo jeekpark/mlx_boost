@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_boost_types.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeekpark <jeekpark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jeekpark <jeekpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 18:56:15 by jeekpark          #+#    #+#             */
-/*   Updated: 2023/11/01 14:15:51 by jeekpark         ###   ########.fr       */
+/*   Updated: 2023/11/01 02:31:26 by jeekpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_boost_component
 {
 	t_boost_mode		mode;
 	char				*name;
-	void				*mlx;
+	void				*mlx_ptr;
 	void				*img;
 	int					width;
 	int					height;

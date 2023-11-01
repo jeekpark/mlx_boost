@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   boost_add_component.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeekpark <jeekpark@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeekpark <jeekpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 01:57:41 by jeekpark          #+#    #+#             */
-/*   Updated: 2023/11/01 02:31:25 by jeekpark         ###   ########.fr       */
+/*   Updated: 2023/11/01 14:30:19 by jeekpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/mlx_boost.h"
 #include "../../includes/mlx_boost_list.h"
+#include "../../includes/mlx_boost_utils.h"
+#include "../../includes/mlx.h"
+#include <stdlib.h>
 
 static int	_strcmp_alt(const char *s1, const char *s2)
 {
@@ -24,6 +27,8 @@ static int	_strcmp_alt(const char *s1, const char *s2)
 	}
 	return (FALSE);
 }
+
+
 
 static t_boost_node	*_find_component(t_boost_list *list, char *name)
 {
@@ -61,16 +66,54 @@ static t_boost_err	_valid_comp_size(t_boost_pixel comp_size)
 	}
 }
 
+static t_boost_err	_init_component(void *mlx, t_boost_component *comp, t_boost_pixel comp_size, char *name)
+{
+	if (mlx == NULL || comp == NULL)
+		return (FALSE);
+	comp->img = mlx_new_image(mlx, comp_size.x, comp_size.y);
+	if (comp->img == NULL)
+		return (FALSE);
+	comp->name = boost_strdup(name);
+	if (comp->name == NULL)
+	{
+		mlx_destroy_image(mlx, comp->img);
+		return (FALSE);
+	}
+	comp->mlx = mlx;
+	comp->width = comp_size.x;
+	comp->height = comp_size.y;
+	comp->mlx_data_addr = (int *)mlx_get_data_addr(comp->img, &comp->bpp,
+		&comp->line_size, &comp->endian);
+	if (comp->mlx_data_addr == NULL)
+	{
+		mlx_destroy_image(mlx, comp->img);
+		free(comp->name);
+		return (FALSE);
+	}
+	return (TRUE);
+}
+
 t_boost_err	boost_add_component(void *boost, t_boost_pixel comp_size, char *comp_name)
 {
-	t_boost	*temp;
+	t_boost				*temp;
+	t_boost_component	*to_add;
 
 	if (boost == NULL
 		|| _valid_comp_size(comp_size) == FALSE
 		|| comp_name == NULL)
 		return (FALSE);
+	temp = (t_boost *)boost;
 	if (_find_component(&temp->components, comp_name))
 	{
 		return (FALSE);
 	}
+	to_add = (t_boost_component *)malloc(sizeof(t_boost_component));
+	if (to_add == NULL)
+		return (FALSE);
+	if (_init_component(temp->mlx, to_add, comp_size, comp_name) == FALSE)
+	{
+		free(to_add);
+		return (FALSE);
+	}
+	return (TRUE);
 }

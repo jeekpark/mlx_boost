@@ -1,16 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_push_back.c                                   :+:      :+:    :+:   */
+/*   boost_list_push_back.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeekpark <jeekpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 22:04:23 by jeekpark          #+#    #+#             */
-/*   Updated: 2023/10/31 23:14:06 by jeekpark         ###   ########.fr       */
+/*   Updated: 2023/11/01 22:08:47 by jeekpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/mlx_boost_list.h"
+#include <stdlib.h>
+
+static void	_boost_bzero(void *s, size_t n)
+{
+	size_t			i;
+	unsigned char	*s_save;
+
+	i = 0;
+	s_save = s;
+	while (i < n)
+		s_save[i++] = 0;
+}
 
 static void	*_boost_calloc(size_t count, size_t size)
 {
@@ -19,7 +31,7 @@ static void	*_boost_calloc(size_t count, size_t size)
 	res = (char *) malloc(count * size);
 	if (res == (void *) 0)
 		return ((void *) 0);
-	ft_bzero(res, count * size);
+	_boost_bzero(res, count * size);
 	return ((void *) res);
 }
 

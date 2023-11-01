@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_del_one_node.c                                :+:      :+:    :+:   */
+/*   boost_list_del_one_node.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeekpark <jeekpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 22:09:18 by jeekpark          #+#    #+#             */
-/*   Updated: 2023/10/31 23:16:19 by jeekpark         ###   ########.fr       */
+/*   Updated: 2023/11/01 22:07:26 by jeekpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/mlx_boost_list.h"
+#include <stdlib.h>
 
 static void	_del_node(t_boost_node *node, void (*del)(void *))
 {
@@ -63,7 +64,7 @@ t_boost_err	boost_list_del_one_node(t_boost_list *list, t_boost_node *node, void
 	{
 		del(node->content);
 		free(node);
-		list_init(list);
+		boost_list_init(list);
 		return (TRUE);
 	}
 	if (list->head == node)

@@ -6,9 +6,11 @@
 #    By: jeekpark <jeekpark@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/31 14:55:02 by jeekpark          #+#    #+#              #
-#    Updated: 2023/11/01 22:06:02 by jeekpark         ###   ########.fr        #
+#    Updated: 2023/11/01 22:11:13 by jeekpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+NAME							=	libmlxboost.dylib
 
 CC								=	cc
 CFLAGS							=	-Wall -Wextra -Werror -fPIC
@@ -43,22 +45,22 @@ MLX_BOOST_UTILS_OBJS			=	$(MLX_BOOST_UTILS_SRCS:.c=.o)
 
 
 
-LIBMLXBOOST						=	libmlxboost.dylib
+
 
 ARCH		:= $(shell uname -m)
-ARCH_M1		=	arm64
-ifeq ($(ARCH),$(ARCH_M1))
+
+ifeq ($(ARCH), arm64)
 	LIBMLX = ./mlx_m1/libmlx.dylib
 else
 	LIBMLX = ./mlx_intel/libmlx.dylib
 endif
 
 
-all : $(LIBMLXBOOST)
+all : $(NAME)
 
 
-$(LIBMLXBOOST): $(MLX_BOOST_OBJS) $(MLX_BOOST_LIST_OBJS) $(MLX_BOOST_UTILS_OBJS)
-ifeq ($(ARCH),$(ARCH_M1))
+$(NAME): $(MLX_BOOST_OBJS) $(MLX_BOOST_LIST_OBJS) $(MLX_BOOST_UTILS_OBJS)
+ifeq ($(ARCH), arm64)
 	make -C mlx_m1 2>/dev/null 1>/dev/null
 else
 	make -C mlx_intel 2>/dev/null 1>/dev/null
@@ -71,7 +73,7 @@ endif
 
 clean :
 	make -C mlx_m1 clean
-	rm -f $(MLX_BOOST_OBJS) $(MLX_BOOST_LIST_OBJS) $(MLX_BOOST_UTILS_OBJS) $(LIBMLXBOOST)
+	rm -f $(MLX_BOOST_OBJS) $(MLX_BOOST_LIST_OBJS) $(MLX_BOOST_UTILS_OBJS) $(NAME)
 
 
 .PHONY: all clean

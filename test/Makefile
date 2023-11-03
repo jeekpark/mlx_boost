@@ -8,7 +8,7 @@ SRCS			=	test.c
 
 OBJS			=	$(SRCS:.c=.o)
 
-LIBMLX_FLAGS	=	-L../ -lmlxboost -framework OpenGL -framework Appkit
+LIBMLX_FLAGS	=	-L. -lmlxboost -lmlx -framework OpenGL -framework Appkit
 
 all : $(NAME)
 

@@ -24,14 +24,21 @@
 # define RDWR					1
 
 # define MAX_WINDOW_WIDTH		3860
-# define MIN_WINDOW_WIDTH		100
+# define MIN_WINDOW_WIDTH		1
 # define MAX_WINDOW_HEIGHT		2160
-# define MIN_WINDOW_HEIGHT		100
+# define MIN_WINDOW_HEIGHT		1
 
 # define MAX_COMPONENT_WIDTH	16384
 # define MIN_COMPONENT_WIDTH	1
 # define MAX_COMPONENT_HEIGHT	16384
 # define MIN_COMPONENT_HEIGHT	1
+
+# define X_EVENT_KEY_PRESS		2
+# define X_EVENT_KEY_RELEASE	3
+# define X_EVENT_MOTION_NOTIFY	6
+# define X_EVENT_DESTROY		17
+# define X_EVENT_MOUSE_PRESS	4
+# define X_EVENT_MOUSE_RELEASE	5
 
 typedef int				t_boost_color;
 typedef int				t_boost_bool;

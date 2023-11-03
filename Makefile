@@ -6,7 +6,7 @@
 #    By: jeekpark <jeekpark@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/31 14:55:02 by jeekpark          #+#    #+#              #
-#    Updated: 2023/11/03 14:05:35 by jeekpark         ###   ########.fr        #
+#    Updated: 2023/11/03 15:25:56 by jeekpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ MLX_BOOST_FILE_NAME				=	boost_init.c						\
 									boost_add_component.c				\
 									boost_component_to_window.c			\
 									boost_draw_pixel_to_compnent.c		\
-									boost_del_component_by_name.c
+									boost_del_component_by_name.c		\
+									boost_destroy.c
 
 MLX_BOOST_LIST_FILE_NAME		=	boost_list_del_all_node.c			\
 									boost_list_del_one_node.c			\

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   boost_add_component.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeekpark <jeekpark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jeekpark <jeekpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/01 01:57:41 by jeekpark          #+#    #+#             */
-/*   Updated: 2023/11/01 14:30:19 by jeekpark         ###   ########.fr       */
+/*   Created: 2023/11/01 23:38:48 by jeekpark          #+#    #+#             */
+/*   Updated: 2023/11/03 12:39:08 by jeekpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "../../includes/mlx.h"
 #include <stdlib.h>
 
-static int	_strcmp_alt(const char *s1, const char *s2)
+static t_boost_err	_strcmp_alt(const char *s1, const char *s2)
 {
 	while (*s1 == *s2)
 	{
@@ -27,8 +27,6 @@ static int	_strcmp_alt(const char *s1, const char *s2)
 	}
 	return (FALSE);
 }
-
-
 
 static t_boost_node	*_find_component(t_boost_list *list, char *name)
 {
@@ -92,7 +90,7 @@ static t_boost_err	_init_component(void *mlx, t_boost_component *comp, t_boost_p
 	}
 	return (TRUE);
 }
-
+#include <printf.h>
 t_boost_err	boost_add_component(void *boost, t_boost_pixel comp_size, char *comp_name)
 {
 	t_boost				*temp;
@@ -104,15 +102,20 @@ t_boost_err	boost_add_component(void *boost, t_boost_pixel comp_size, char *comp
 		return (FALSE);
 	temp = (t_boost *)boost;
 	if (_find_component(&temp->components, comp_name))
-	{
 		return (FALSE);
-	}
 	to_add = (t_boost_component *)malloc(sizeof(t_boost_component));
 	if (to_add == NULL)
 		return (FALSE);
 	if (_init_component(temp->mlx, to_add, comp_size, comp_name) == FALSE)
 	{
+		
 		free(to_add);
+		return (FALSE);
+	}
+	if (boost_list_push_back(to_add, &temp->components) == FALSE)
+	{
+		free(to_add->name);
+		mlx_destroy_image(temp->mlx, to_add->img);
 		return (FALSE);
 	}
 	return (TRUE);

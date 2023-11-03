@@ -2,7 +2,7 @@
 a.out
 *.o
 .DS*
-.swiftdoc
-.swiftmodule
-.swiftsourceinfo
-.dylib
+*.swiftdoc
+*.swiftmodule
+*.swiftsourceinfo
+*.dylib
